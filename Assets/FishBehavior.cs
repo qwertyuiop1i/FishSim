@@ -14,8 +14,12 @@ public class FishBehavior : MonoBehaviour
     public float steerStrength = 2;
     public float wanderStrength = 1;
 
+    private int neighborCount;
+
     private Rigidbody2D rb;
     private SpriteRenderer sr;
+
+    public string species;
 
     private Vector2 desiredDirection;
 
@@ -28,6 +32,8 @@ public class FishBehavior : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
 
         transform.position = new Vector2(Random.Range(-7.0f, 7.0f), Random.Range(-5.0f, 5.0f));
+
+        neighborCount = 0;
     }
 
     void FixedUpdate()
@@ -41,8 +47,9 @@ public class FishBehavior : MonoBehaviour
 
         foreach (Collider2D neighbor in neighbors)
         {
-            if (neighbor.gameObject != gameObject && neighbor.CompareTag("greyfish"))
+            if (neighbor.gameObject != gameObject && neighbor.CompareTag(species))
             {
+                neighborCount += 1;
                 Vector2 neighborOffset = neighbor.transform.position - transform.position;
                 float distance = neighborOffset.magnitude;
 
@@ -54,13 +61,22 @@ public class FishBehavior : MonoBehaviour
 
                 // Cohesion
                 cohesionForce += (Vector2)neighbor.transform.position * cohesionWeight;
+
+
+
             }
         }
-        alignmentForce /= neighbors.Length;
+        alignmentForce /= neighborCount;
         alignmentForce.Normalize();
-
-        cohesionForce /= neighbors.Length;
-        cohesionForce = cohesionForce - (Vector2)transform.position;
+        if (neighborCount != 0)
+        {
+            cohesionForce /= neighborCount;
+            cohesionForce = cohesionForce - (Vector2)transform.position;
+        }
+        else
+        {
+            cohesionForce = Vector2.zero;
+        }
 
 
 
