@@ -100,9 +100,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boidRadius: 2.62
-  separationWeight: 0.07
-  alignmentWeight: 0.76
-  cohesionWeight: 0.54
+  separationWeight: 0.9
+  alignmentWeight: 0
+  cohesionWeight: 0
   maxSpeed: 4
   steerStrength: 7
   wanderStrength: 0.26

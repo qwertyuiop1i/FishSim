@@ -8,11 +8,13 @@ public class FishBehavior : MonoBehaviour
     public float separationWeight = 1.5f;
     public float alignmentWeight = 1f;
     public float cohesionWeight = 1f;
-
+    public float otherSpeciesSeperationWeight = 0f;
     private List<GameObject> neighbors;
     public float maxSpeed = 4;
     public float steerStrength = 2;
     public float wanderStrength = 1;
+
+
 
     private int neighborCount;
 
@@ -47,10 +49,15 @@ public class FishBehavior : MonoBehaviour
 
         foreach (Collider2D neighbor in neighbors)
         {
+            Vector2 neighborOffset = neighbor.transform.position - transform.position;
+            if (!neighbor.CompareTag(species)&& neighbor.gameObject != gameObject)
+            {
+                separationForce += neighborOffset * -1*otherSpeciesSeperationWeight;
+            }
             if (neighbor.gameObject != gameObject && neighbor.CompareTag(species))
             {
                 neighborCount += 1;
-                Vector2 neighborOffset = neighbor.transform.position - transform.position;
+                
                 float distance = neighborOffset.magnitude;
 
                 // Separation
