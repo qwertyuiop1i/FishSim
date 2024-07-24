@@ -24,9 +24,16 @@ public class FishBehavior : MonoBehaviour
     public string species;
 
     private Vector2 desiredDirection;
-
-    public float timeSpeed = 1f;
     
+
+
+    [SerializeField]
+    private Vector2 separationForce = Vector2.zero;
+    [SerializeField]
+    private Vector2 alignmentForce = Vector2.zero;
+    [SerializeField]
+    private Vector2 cohesionForce = Vector2.zero;
+
     void Start()
     {
         desiredDirection = Vector2.zero;
@@ -40,38 +47,46 @@ public class FishBehavior : MonoBehaviour
 
     void FixedUpdate()
     {
-        Time.timeScale = timeSpeed;
+     
 
-        Vector2 separationForce = Vector2.zero;
-        Vector2 alignmentForce = Vector2.zero;
-        Vector2 cohesionForce = Vector2.zero;
+        separationForce = Vector2.zero;
+        alignmentForce = Vector2.zero;
+        cohesionForce = Vector2.zero;
+
         Collider2D[] neighbors = Physics2D.OverlapCircleAll(transform.position, boidRadius);
 
         foreach (Collider2D neighbor in neighbors)
         {
-            Vector2 neighborOffset = neighbor.transform.position - transform.position;
-            if (!neighbor.CompareTag(species)&& neighbor.gameObject != gameObject)
+            if (neighbor.gameObject.layer == LayerMask.NameToLayer("fish") && neighbor.gameObject != gameObject)
             {
-                separationForce += neighborOffset * -1*otherSpeciesSeperationWeight;
+
+                Vector2 neighborOffset = neighbor.transform.position - transform.position;
+                if ((!neighbor.CompareTag(species)))
+                {
+                    separationForce += neighborOffset * -1 * otherSpeciesSeperationWeight;
+                }
+                if (neighbor.CompareTag(species))
+                {
+                    neighborCount += 1;
+
+                    float distance = neighborOffset.magnitude;
+
+                    // Separation
+                    separationForce += neighborOffset * -1;
+
+                    // Alignment
+                    alignmentForce += neighbor.GetComponent<Rigidbody2D>().velocity.normalized * alignmentWeight;
+
+                    // Cohesion
+                    cohesionForce += (Vector2)neighbor.transform.position * cohesionWeight;
+
+
+
+                }
             }
-            if (neighbor.gameObject != gameObject && neighbor.CompareTag(species))
-            {
-                neighborCount += 1;
-                
-                float distance = neighborOffset.magnitude;
-
-                // Separation
-                separationForce += neighborOffset * -1;
-
-                // Alignment
-                alignmentForce += neighbor.GetComponent<Rigidbody2D>().velocity.normalized * alignmentWeight;
-
-                // Cohesion
-                cohesionForce += (Vector2)neighbor.transform.position * cohesionWeight;
+            
 
 
-
-            }
         }
         alignmentForce /= neighborCount;
         alignmentForce.Normalize();
@@ -87,7 +102,7 @@ public class FishBehavior : MonoBehaviour
 
 
 
-        desiredDirection = (separationForce*separationWeight + alignmentForce*alignmentWeight + cohesionForce*cohesionWeight + Random.insideUnitCircle * wanderStrength).normalized;
+        desiredDirection = (separationForce*separationWeight + alignmentForce*alignmentWeight + cohesionForce*cohesionWeight + new Vector2(Mathf.Cos(Random.Range(0, Mathf.PI * 2)), Mathf.Sin(Random.Range(0, Mathf.PI * 2))) * wanderStrength).normalized;
 
         Vector2 desiredVelocity = desiredDirection * maxSpeed;
         Vector2 desiredSteeringForce = (desiredVelocity - rb.velocity) * steerStrength;

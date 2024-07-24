@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2596781353317840304}
   - component: {fileID: 2596781353317840306}
   - component: {fileID: 2596781353317840307}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: greyFish
   m_TagString: greyfish
   m_Icon: {fileID: 0}
@@ -99,15 +99,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7f7ff7ea2204ef4d8428f731e7c58bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boidRadius: 2.62
-  separationWeight: 0.07
-  alignmentWeight: 1.5
+  boidRadius: 2.5
+  separationWeight: 0.31
+  alignmentWeight: 0.39
   cohesionWeight: 0.54
+  otherSpeciesSeperationWeight: 0.3
   maxSpeed: 4
   steerStrength: 3
   wanderStrength: 0.26
   species: greyfish
-  timeSpeed: 1
+  separationForce: {x: 0, y: 0}
+  alignmentForce: {x: 0, y: 0}
+  cohesionForce: {x: 0, y: 0}
 --- !u!50 &2596781353317840306
 Rigidbody2D:
   serializedVersion: 4
