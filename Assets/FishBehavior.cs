@@ -18,6 +18,8 @@ public class FishBehavior : MonoBehaviour
     private SpriteRenderer sr;
 
     private Vector2 desiredDirection;
+
+    public float timeSpeed = 1f;
     void Start()
     {
         desiredDirection = Vector2.zero;
@@ -27,7 +29,32 @@ public class FishBehavior : MonoBehaviour
 
     void FixedUpdate()
     {
-        desiredDirection = (desiredDirection + Random.insideUnitCircle * wanderStrength).normalized;
+        Time.timeScale = timeSpeed;
+
+        Vector2 separationForce = Vector2.zero;
+        Vector2 alignmentForce = Vector2.zero;
+        Vector2 cohesionForce = Vector2.zero;
+        Collider2D[] neighbors = Physics2D.OverlapCircleAll(transform.position, boidRadius);
+
+        foreach (Collider2D neighbor in neighbors)
+        {
+            if (neighbor.gameObject != gameObject && neighbor.CompareTag("greyfish"))
+            {
+                Vector2 neighborOffset = neighbor.transform.position - transform.position;
+                float distance = neighborOffset.magnitude;
+
+                // Separation
+                separationForce -= (neighborOffset.normalized / distance) * separationWeight;
+
+                // Alignment
+                alignmentForce += neighbor.GetComponent<Rigidbody2D>().velocity.normalized * alignmentWeight;
+
+                // Cohesion
+                cohesionForce += (Vector2)neighbor.transform.position * cohesionWeight;
+            }
+        }
+
+        desiredDirection = (separationForce + alignmentForce + (cohesionForce / neighbors.Length) + Random.insideUnitCircle * wanderStrength).normalized;
 
         Vector2 desiredVelocity = desiredDirection * maxSpeed;
         Vector2 desiredSteeringForce = (desiredVelocity - rb.velocity) * steerStrength;
@@ -51,5 +78,12 @@ public class FishBehavior : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         rb.velocity = -rb.velocity;
+        desiredDirection *= -1;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, boidRadius);
     }
 }
