@@ -20,11 +20,14 @@ public class FishBehavior : MonoBehaviour
     private Vector2 desiredDirection;
 
     public float timeSpeed = 1f;
+    
     void Start()
     {
         desiredDirection = Vector2.zero;
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
+
+        transform.position = new Vector2(Random.Range(-7.0f, 7.0f), Random.Range(-5.0f, 5.0f));
     }
 
     void FixedUpdate()
@@ -44,7 +47,7 @@ public class FishBehavior : MonoBehaviour
                 float distance = neighborOffset.magnitude;
 
                 // Separation
-                separationForce -= (neighborOffset.normalized / distance) * separationWeight;
+                separationForce += neighborOffset * -1;
 
                 // Alignment
                 alignmentForce += neighbor.GetComponent<Rigidbody2D>().velocity.normalized * alignmentWeight;
@@ -53,8 +56,15 @@ public class FishBehavior : MonoBehaviour
                 cohesionForce += (Vector2)neighbor.transform.position * cohesionWeight;
             }
         }
+        alignmentForce /= neighbors.Length;
+        alignmentForce.Normalize();
 
-        desiredDirection = (separationForce + alignmentForce + (cohesionForce / neighbors.Length) + Random.insideUnitCircle * wanderStrength).normalized;
+        cohesionForce /= neighbors.Length;
+        cohesionForce = cohesionForce - (Vector2)transform.position;
+
+
+
+        desiredDirection = (separationForce*separationWeight + alignmentForce*alignmentWeight + cohesionForce*cohesionWeight + Random.insideUnitCircle * wanderStrength).normalized;
 
         Vector2 desiredVelocity = desiredDirection * maxSpeed;
         Vector2 desiredSteeringForce = (desiredVelocity - rb.velocity) * steerStrength;
