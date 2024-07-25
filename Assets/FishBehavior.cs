@@ -16,6 +16,7 @@ public class FishBehavior : MonoBehaviour
 
     public float foodWanderStrength = 3f;
 
+    [SerializeField]
     private int neighborCount;
 
     private Rigidbody2D rb;
@@ -49,7 +50,7 @@ public class FishBehavior : MonoBehaviour
 
     void FixedUpdate()
     {
-     
+        neighborCount = 0;
 
         separationForce = Vector2.zero;
         alignmentForce = Vector2.zero;
@@ -109,7 +110,7 @@ public class FishBehavior : MonoBehaviour
 
 
 
-        desiredDirection = (foodForce*foodWanderStrength+separationForce*separationWeight + alignmentForce*alignmentWeight + cohesionForce*cohesionWeight + new Vector2(Mathf.Cos(Random.Range(0, Mathf.PI * 2)), Mathf.Sin(Random.Range(0, Mathf.PI * 2))) * wanderStrength).normalized;
+        desiredDirection = (foodForce*foodWanderStrength+separationForce*separationWeight + alignmentForce*alignmentWeight + cohesionForce + new Vector2(Mathf.Cos(Random.Range(0, Mathf.PI * 2)), Mathf.Sin(Random.Range(0, Mathf.PI * 2))) * wanderStrength).normalized;
 
         Vector2 desiredVelocity = desiredDirection * maxSpeed;
         Vector2 desiredSteeringForce = (desiredVelocity - rb.velocity) * steerStrength;

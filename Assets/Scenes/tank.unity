@@ -933,7 +933,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 32a7c9aed3e0b454eb0f2274ac7b4ef9, type: 2}
+  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -955,7 +955,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.38294762, g: 0.4595459, b: 0.5849056, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1641,7 +1641,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1344616874043252808, guid: 51eed3d0cde4228418f7135a77973d96, type: 3}
       propertyPath: steerStrength
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1344616874043252808, guid: 51eed3d0cde4228418f7135a77973d96, type: 3}
       propertyPath: otherSpeciesSeperationWeight

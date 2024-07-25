@@ -103,11 +103,17 @@ MonoBehaviour:
   separationWeight: 0.9
   alignmentWeight: 0
   cohesionWeight: 0
+  otherSpeciesSeperationWeight: 0.42
   maxSpeed: 4
   steerStrength: 7
   wanderStrength: 0.26
+  foodWanderStrength: 3
+  neighborCount: 0
   species: redfish
-  timeSpeed: 1
+  separationForce: {x: 0, y: 0}
+  alignmentForce: {x: 0, y: 0}
+  cohesionForce: {x: 0, y: 0}
+  foodForce: {x: 0, y: 0}
 --- !u!50 &1344616874043252811
 Rigidbody2D:
   serializedVersion: 4
