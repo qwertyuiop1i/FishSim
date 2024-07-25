@@ -20,6 +20,7 @@ public class graphMaker : MonoBehaviour
             elapsedTime = 0f;
             CalculateAverageRedness();
             PlotPoint();
+            Debug.Log("graph tick");
         }
     }
 
@@ -28,7 +29,7 @@ public class graphMaker : MonoBehaviour
         int fishCount = 0;
         float totalRedness = 0f;
 
-        GameObject[] fishObjects = GameObject.FindGameObjectsWithTag("fish");
+        GameObject[] fishObjects = GameObject.FindGameObjectsWithTag("greyfish");
         foreach (GameObject fish in fishObjects)
         {
             FishBehavior fishBehavior = fish.GetComponent<FishBehavior>();
@@ -42,6 +43,7 @@ public class graphMaker : MonoBehaviour
         if (fishCount > 0)
         {
             float averageRedness = totalRedness / fishCount;
+            Debug.Log(averageRedness);
             rednessData.Add(averageRedness);
         }
     }
@@ -59,8 +61,8 @@ public class graphMaker : MonoBehaviour
 
         for (int i = 0; i < rednessData.Count; i++)
         {
-            float yPosition = transform.position.y + rednessData[i] * 2; //
-            GameObject newPoint = Instantiate(pointPrefab, new Vector3(xPosition + i * pointSpacing, yPosition, 0), Quaternion.identity, transform);
+            float yPosition = transform.position.y + rednessData[i] * 5; //
+            GameObject newPoint = Instantiate(pointPrefab, new Vector3(xPosition + i * pointSpacing, yPosition, 0), Quaternion.identity,transform);
         }
     }
 }
