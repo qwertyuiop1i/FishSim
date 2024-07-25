@@ -9,9 +9,15 @@ public class graphMaker : MonoBehaviour
     public float graphWidth = 10f;
     public float pointSpacing = 0.1f;
 
+    public LineRenderer lr;
+
     private List<float> rednessData = new List<float>();
     private float elapsedTime = 0f;
 
+    public void Start()
+    {
+        lr = GetComponent<LineRenderer>();
+    }
     private void Update()
     {
         elapsedTime += Time.deltaTime;
@@ -50,19 +56,20 @@ public class graphMaker : MonoBehaviour
 
     private void PlotPoint()
     {
-        // Clear existing points
+        lr.positionCount = rednessData.Count;
+
         foreach (Transform child in transform)
         {
             Destroy(child.gameObject);
         }
 
-        float xPosition = 0f;
+        float xPosition = 4f;
         float pointSpacing = graphWidth / rednessData.Count;
 
         for (int i = 0; i < rednessData.Count; i++)
         {
-            float yPosition = transform.position.y + rednessData[i] * 5; //
-            GameObject newPoint = Instantiate(pointPrefab, new Vector3(xPosition + i * pointSpacing, yPosition, 0), Quaternion.identity,transform);
+            float yPosition = transform.position.y+3f + rednessData[i] * 5; //
+            lr.SetPosition(i, new Vector3(xPosition + i * pointSpacing, yPosition, 0));
         }
     }
 }
