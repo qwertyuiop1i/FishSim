@@ -16,4 +16,8 @@ public class foodSpawn : MonoBehaviour
     {
         
     }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        collision.gameObject.GetComponent<FishBehavior>().foodBar += 20f;
+    }
 }

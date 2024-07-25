@@ -9,7 +9,8 @@ public class FishBehavior : MonoBehaviour
     public float alignmentWeight = 1f;
     public float cohesionWeight = 1f;
     public float otherSpeciesSeperationWeight = 0f;
-    private List<GameObject> neighbors;
+
+
     public float maxSpeed = 4;
     public float steerStrength = 2;
     public float wanderStrength = 1;
@@ -25,7 +26,11 @@ public class FishBehavior : MonoBehaviour
     public string species;
 
     private Vector2 desiredDirection;
-    
+
+    [SerializeField]
+    public float foodBar;
+    [SerializeField]
+    private float startFood;
 
 
     [SerializeField]
@@ -39,6 +44,8 @@ public class FishBehavior : MonoBehaviour
 
     void Start()
     {
+        foodBar = startFood;
+
         desiredDirection = Vector2.zero;
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
@@ -50,6 +57,14 @@ public class FishBehavior : MonoBehaviour
 
     void FixedUpdate()
     {
+        foodBar -= Time.deltaTime;
+        if (foodBar <= 0)
+        {
+            Destroy(gameObject);
+            
+        }
+
+
         neighborCount = 0;
 
         separationForce = Vector2.zero;
@@ -60,7 +75,7 @@ public class FishBehavior : MonoBehaviour
 
         foreach (Collider2D neighbor in neighbors)
         {
-            Vector2 neighborOffset = neighbor.transform.position - transform.position;
+            Vector2 neighborOffset = (neighbor.transform.position - transform.position).normalized;
 
             if (neighbor.tag == "food")
             {

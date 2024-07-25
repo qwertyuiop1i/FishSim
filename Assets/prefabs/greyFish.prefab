@@ -99,15 +99,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7f7ff7ea2204ef4d8428f731e7c58bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boidRadius: 5.12
-  separationWeight: 0.18
-  alignmentWeight: 0.3
+  boidRadius: 2.91
+  separationWeight: 0.15
+  alignmentWeight: 0.96
   cohesionWeight: 0.7
   otherSpeciesSeperationWeight: 0.3
   maxSpeed: 4
   steerStrength: 3
-  wanderStrength: 0.26
-  foodWanderStrength: 3
+  wanderStrength: 0.66
+  foodWanderStrength: 2
   neighborCount: 0
   species: greyfish
   separationForce: {x: 0, y: 0}
