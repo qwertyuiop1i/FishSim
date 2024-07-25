@@ -110,6 +110,8 @@ MonoBehaviour:
   foodWanderStrength: 2
   neighborCount: 0
   species: greyfish
+  foodBar: 0
+  startFood: 20
   separationForce: {x: 0, y: 0}
   alignmentForce: {x: 0, y: 0}
   cohesionForce: {x: 0, y: 0}

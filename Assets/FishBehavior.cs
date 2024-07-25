@@ -60,6 +60,7 @@ public class FishBehavior : MonoBehaviour
         foodBar -= Time.deltaTime;
         if (foodBar <= 0)
         {
+            Debug.Log("A fish of species "+species+" died.");
             Destroy(gameObject);
             
         }

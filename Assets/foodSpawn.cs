@@ -18,6 +18,11 @@ public class foodSpawn : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        collision.gameObject.GetComponent<FishBehavior>().foodBar += 20f;
+        if (collision.gameObject.layer == LayerMask.NameToLayer("fish"))
+        {
+            collision.gameObject.GetComponent<FishBehavior>().foodBar += 20f;
+            Destroy(gameObject);
+        }
+        Destroy(gameObject);
     }
 }

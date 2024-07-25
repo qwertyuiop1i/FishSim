@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1344616874043252808}
   - component: {fileID: 1344616874043252811}
   - component: {fileID: 1344616874043252810}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: redfish
   m_TagString: redfish
   m_Icon: {fileID: 0}
@@ -100,16 +100,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boidRadius: 2.62
-  separationWeight: 0.9
+  separationWeight: 0.78
   alignmentWeight: 0
   cohesionWeight: 0
   otherSpeciesSeperationWeight: 0.42
   maxSpeed: 4
   steerStrength: 7
-  wanderStrength: 0.26
-  foodWanderStrength: 3
+  wanderStrength: 0.64
+  foodWanderStrength: 5
   neighborCount: 0
   species: redfish
+  foodBar: 0
+  startFood: 20
   separationForce: {x: 0, y: 0}
   alignmentForce: {x: 0, y: 0}
   cohesionForce: {x: 0, y: 0}

@@ -458,6 +458,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeSpeed: 1
+  foodSpawnSpeed: 0.5
+  fd: {fileID: 4176105462901022265, guid: a9af4cde858f1ed44948770b390ec39b, type: 3}
+  t: 0
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
