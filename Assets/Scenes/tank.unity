@@ -495,7 +495,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Intensity: 1.66
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 00000000
@@ -588,7 +588,7 @@ GameObject:
   - component: {fileID: 676842676}
   m_Layer: 0
   m_Name: tank
-  m_TagString: Untagged
+  m_TagString: wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1636,11 +1636,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2596781353317840305, guid: 713eac655b2bad94f822fb6872e0fdf5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.21
+      value: -3.53
       objectReference: {fileID: 0}
     - target: {fileID: 2596781353317840305, guid: 713eac655b2bad94f822fb6872e0fdf5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.68
+      value: 3.23
       objectReference: {fileID: 0}
     - target: {fileID: 2596781353317840305, guid: 713eac655b2bad94f822fb6872e0fdf5, type: 3}
       propertyPath: m_LocalPosition.z

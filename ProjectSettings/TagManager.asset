@@ -7,6 +7,7 @@ TagManager:
   - greyfish
   - redfish
   - food
+  - wall
   layers:
   - Default
   - TransparentFX

@@ -11,6 +11,8 @@ public class FishBehavior : MonoBehaviour
     public float otherSpeciesSeperationWeight = 0f;
 
 
+    public float mutationRate = 0.1f;
+
     public float maxSpeed = 4;
     public float steerStrength = 2;
     public float wanderStrength = 1;
@@ -32,6 +34,8 @@ public class FishBehavior : MonoBehaviour
     [SerializeField]
     private float startFood;
 
+    [SerializeField]
+    private float reprodVal=40f;
 
     [SerializeField]
     private Vector2 separationForce = Vector2.zero;
@@ -63,6 +67,22 @@ public class FishBehavior : MonoBehaviour
             Debug.Log("A fish of species "+species+" died.");
             Destroy(gameObject);
             
+        }
+
+
+        if (foodBar >= reprodVal)
+        {
+            foodBar = startFood;
+
+            GameObject newFish = Instantiate(gameObject, transform.position, Quaternion.identity);
+            FishBehavior newFishBehavior = newFish.GetComponent<FishBehavior>();
+
+            newFishBehavior.separationWeight = MutateValue(newFishBehavior.separationWeight);
+            newFishBehavior.cohesionWeight = MutateValue(newFishBehavior.cohesionWeight);
+            newFishBehavior.alignmentWeight = MutateValue(newFishBehavior.alignmentWeight);
+            newFishBehavior.otherSpeciesSeperationWeight = MutateValue(newFishBehavior.otherSpeciesSeperationWeight);
+            newFishBehavior.foodWanderStrength = MutateValue(newFishBehavior.foodWanderStrength);
+            newFishBehavior.wanderStrength = MutateValue(newFishBehavior.wanderStrength);
         }
 
 
@@ -149,8 +169,10 @@ public class FishBehavior : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.CompareTag("wall")) { 
         rb.velocity = -rb.velocity;
         desiredDirection *= -1;
+        }
     }
 
     private void OnDrawGizmosSelected()
@@ -158,4 +180,11 @@ public class FishBehavior : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, boidRadius);
     }
+
+    float MutateValue(float value)
+    {
+        float mutation = Random.Range(-mutationRate, mutationRate);
+        return Mathf.Clamp(value + value * mutation, 0, Mathf.Infinity);
+    }
+
 }
