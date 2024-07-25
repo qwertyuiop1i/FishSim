@@ -14,7 +14,7 @@ public class FishBehavior : MonoBehaviour
     public float steerStrength = 2;
     public float wanderStrength = 1;
 
-
+    public float foodWanderStrength = 3f;
 
     private int neighborCount;
 
@@ -33,6 +33,8 @@ public class FishBehavior : MonoBehaviour
     private Vector2 alignmentForce = Vector2.zero;
     [SerializeField]
     private Vector2 cohesionForce = Vector2.zero;
+    [SerializeField]
+    private Vector2 foodForce = Vector2.zero;
 
     void Start()
     {
@@ -52,15 +54,22 @@ public class FishBehavior : MonoBehaviour
         separationForce = Vector2.zero;
         alignmentForce = Vector2.zero;
         cohesionForce = Vector2.zero;
-
+        foodForce = Vector2.zero;
         Collider2D[] neighbors = Physics2D.OverlapCircleAll(transform.position, boidRadius);
 
         foreach (Collider2D neighbor in neighbors)
         {
+            Vector2 neighborOffset = neighbor.transform.position - transform.position;
+
+            if (neighbor.tag == "food")
+            {
+                foodForce += neighborOffset * foodForce;
+            }
+
             if (neighbor.gameObject.layer == LayerMask.NameToLayer("fish") && neighbor.gameObject != gameObject)
             {
 
-                Vector2 neighborOffset = neighbor.transform.position - transform.position;
+                
                 if ((!neighbor.CompareTag(species)))
                 {
                     separationForce += neighborOffset * -1 * otherSpeciesSeperationWeight;
@@ -68,8 +77,6 @@ public class FishBehavior : MonoBehaviour
                 if (neighbor.CompareTag(species))
                 {
                     neighborCount += 1;
-
-                    float distance = neighborOffset.magnitude;
 
                     // Separation
                     separationForce += neighborOffset * -1;
@@ -102,7 +109,7 @@ public class FishBehavior : MonoBehaviour
 
 
 
-        desiredDirection = (separationForce*separationWeight + alignmentForce*alignmentWeight + cohesionForce*cohesionWeight + new Vector2(Mathf.Cos(Random.Range(0, Mathf.PI * 2)), Mathf.Sin(Random.Range(0, Mathf.PI * 2))) * wanderStrength).normalized;
+        desiredDirection = (foodForce*foodWanderStrength+separationForce*separationWeight + alignmentForce*alignmentWeight + cohesionForce*cohesionWeight + new Vector2(Mathf.Cos(Random.Range(0, Mathf.PI * 2)), Mathf.Sin(Random.Range(0, Mathf.PI * 2))) * wanderStrength).normalized;
 
         Vector2 desiredVelocity = desiredDirection * maxSpeed;
         Vector2 desiredSteeringForce = (desiredVelocity - rb.velocity) * steerStrength;
