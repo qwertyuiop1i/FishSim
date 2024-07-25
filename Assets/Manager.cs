@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Manager : MonoBehaviour
 {
-    public int am;
-    public int[] tracks;
+    
+
+
 
     public float zoomedIn = 3.0f;
     public float zoomedOut = 8.0f;

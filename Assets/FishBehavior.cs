@@ -46,6 +46,7 @@ public class FishBehavior : MonoBehaviour
     [SerializeField]
     private Vector2 foodForce = Vector2.zero;
 
+    public float rednessRatio;
     void Start()
     {
         foodBar = startFood;
@@ -60,7 +61,7 @@ public class FishBehavior : MonoBehaviour
 
 
         float totalWeight = foodWanderStrength + separationWeight + cohesionWeight + alignmentWeight + otherSpeciesSeperationWeight + wanderStrength;
-        float rednessRatio = foodWanderStrength / totalWeight;
+        rednessRatio = foodWanderStrength / totalWeight;
         Color fishColor = new Color(rednessRatio, 0, 0);
         sr.color = fishColor;
     }
