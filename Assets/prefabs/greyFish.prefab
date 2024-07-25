@@ -100,17 +100,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boidRadius: 2.5
-  separationWeight: 0.31
+  separationWeight: 0.4
   alignmentWeight: 0.39
   cohesionWeight: 0.54
   otherSpeciesSeperationWeight: 0.3
   maxSpeed: 4
   steerStrength: 3
   wanderStrength: 0.26
+  foodWanderStrength: 3
   species: greyfish
   separationForce: {x: 0, y: 0}
   alignmentForce: {x: 0, y: 0}
   cohesionForce: {x: 0, y: 0}
+  foodForce: {x: 0, y: 0}
 --- !u!50 &2596781353317840306
 Rigidbody2D:
   serializedVersion: 4

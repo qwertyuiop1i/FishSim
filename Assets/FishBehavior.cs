@@ -63,7 +63,7 @@ public class FishBehavior : MonoBehaviour
 
             if (neighbor.tag == "food")
             {
-                foodForce += neighborOffset * foodForce;
+                foodForce += neighborOffset;
             }
 
             if (neighbor.gameObject.layer == LayerMask.NameToLayer("fish") && neighbor.gameObject != gameObject)
