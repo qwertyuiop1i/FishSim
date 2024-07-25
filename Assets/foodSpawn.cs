@@ -7,6 +7,7 @@ public class foodSpawn : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         transform.position = new Vector2(Random.Range(-6f, 6f), 5.6f);
 
     }

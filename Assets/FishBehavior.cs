@@ -57,6 +57,12 @@ public class FishBehavior : MonoBehaviour
         transform.position = new Vector2(Random.Range(-7.0f, 7.0f), Random.Range(-5.0f, 5.0f));
 
         neighborCount = 0;
+
+
+        float totalWeight = foodWanderStrength + separationWeight + cohesionWeight + alignmentWeight + otherSpeciesSeperationWeight + wanderStrength;
+        float rednessRatio = foodWanderStrength / totalWeight;
+        Color fishColor = new Color(rednessRatio, 0, 0);
+        sr.color = fishColor;
     }
 
     void FixedUpdate()
@@ -83,6 +89,7 @@ public class FishBehavior : MonoBehaviour
             newFishBehavior.otherSpeciesSeperationWeight = MutateValue(newFishBehavior.otherSpeciesSeperationWeight);
             newFishBehavior.foodWanderStrength = MutateValue(newFishBehavior.foodWanderStrength);
             newFishBehavior.wanderStrength = MutateValue(newFishBehavior.wanderStrength);
+            newFish.transform.position = transform.position;
         }
 
 
@@ -184,7 +191,7 @@ public class FishBehavior : MonoBehaviour
     float MutateValue(float value)
     {
         float mutation = Random.Range(-mutationRate, mutationRate);
-        return Mathf.Clamp(value + value * mutation, 0, Mathf.Infinity);
+        return Mathf.Clamp(value + (0.02f+value) * mutation, 0, Mathf.Infinity);
     }
 
 }

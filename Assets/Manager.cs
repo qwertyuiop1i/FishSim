@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Manager : MonoBehaviour
 {
+    public Transform target;
+    public float smoothSpeed = 0.125f;
+
+    private bool following = false;
+
     public float timeSpeed = 1f;
 
     [SerializeField]
@@ -17,6 +22,10 @@ public class Manager : MonoBehaviour
     {
         
     }
+    public void changeVal(float v)
+    {
+        timeSpeed = v;
+            }
     public void Update()
     {
         Time.timeScale = timeSpeed;
@@ -32,4 +41,6 @@ public class Manager : MonoBehaviour
     {
         Instantiate(spawnee);
     }
+
+    
 }
