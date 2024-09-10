@@ -15,3 +15,4 @@ The slider controls the speed of the game(0.2x-20x). The 'greyfish' button spawn
 In the corner, there is a green graph, this graph shows how the average FoodWanderStrength of the greyfish changes over time. The redfish's traits over time is NOT considered in this graph.
 Also note that the more red a fish is, the more it prioritizes FoodWanderStrength over the other weights.
 You can click on a fish to toggle camera follow.
+![image](https://github.com/user-attachments/assets/07ecc8bf-dd7f-4316-a60e-78f56e7af67a)
